@@ -217,13 +217,6 @@ PYTHONPATH=. .venv/bin/python scripts/usd_write_colliders.py
 Stored run files name our method's configurations `beam`, `beam-no-agent` and
 `beam-fixed-grid`; `bodynav/eval/results.py` reads them under the current names.
 
-## Limitations
-
-- Paths are planned and checked against collision geometry; closed-loop
-  execution on the physical robots is future work.
-- Safety is graded against a 2.5 cm reference model built from the same
-  segmented points, not against independent ground truth.
-- Grounding is scored by category, not by instance.
 
 ## Third-party foundations
 
@@ -233,9 +226,6 @@ Some stages build on open-source work, notably
 [`docs/third_party.md`](docs/third_party.md) records what is a dependency, what
 is adapted and what is reference-only, with licences.
 
-## Citation
-
-Citation details will be added when the paper is published.
 
 ## License
 
