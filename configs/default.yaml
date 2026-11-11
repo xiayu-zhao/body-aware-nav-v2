@@ -1,0 +1,52 @@
+# BodyNav default hyperparameters. Every value mirrors the manuscript;
+# section references in comments.
+
+scene_graph:                    # Sec. III-A
+  k_prompts: 512                # SAM 3D prompt count (FPS)
+  retention_delta: 0.5          # keep prompts with pi_k >= delta
+  refine_confidence: 0.4        # expert-refinement trigger (pi_k < 0.4)
+  overlap_tau: 0.5              # segment consolidation threshold
+  floor_bin_m: 0.01             # height histogram bin
+  floor_peak_ratio: 0.9         # local maxima >= 90% of global max
+  floor_dbscan_eps_m: 0.2
+  r_adj_m: 1.0                  # adjacency edge distance threshold
+
+abstraction:                    # Sec. III-B
+  overhead_keep_ratio: 0.05     # sparse overhead retention
+  critical_spacing_m: 0.015     # 1-2 cm in safety-critical regions
+  background_density: 0.05      # static background downsample
+  voxel:                        # Eq. 4 (+ Sec. III-C emphasis term)
+    r0_m: 0.5
+    r_min_m: 0.025
+    alpha: 0.6                  # in [0.5, 0.7]
+    beta: 0.6                   # in [0.5, 0.7]
+    gamma: 0.3                  # emphasis gain (Sec. III-C)
+    foothold_buffer_m: 0.3
+
+completion:                     # Sec. III-C
+  tau_c: 0.7
+  emphasis_strength: 1.0
+  max_synthetic_ratio: 0.6
+
+value_maps:                     # Sec. III-D.2, Eqs. 6-9
+  sigma_g_m: 5.0
+  sigma_h_range_m: [3.0, 5.0]   # class table; instruction value overrides
+  hazard_weights:               # w_h
+    welding_zone: 1.0
+    crane_zone: 0.6
+    overhead_work: 0.4
+  theta_safe: 0.15
+  alpha_s: 2.0
+  alpha_w: 1.0
+  fusion_weights:               # (lambda_A, lambda_H, lambda_C)
+    safety_first: [0.3, 0.6, 0.1]
+    efficiency_first: [0.6, 0.2, 0.2]
+    area_preference: [0.4, 0.3, 0.3]
+  smooth_sigma: 1.0
+
+planning:                       # Sec. III-E
+  eta: 0.2                      # in [0.1, 0.3]
+  connectivity: 26
+  defaults:
+    hazard_margin_m: 3.0
+    static_obstacle_margin_m: 0.5

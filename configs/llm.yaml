@@ -1,0 +1,64 @@
+# LLM backend configuration. API keys come from the environment
+# (OPENAI_API_KEY, ANTHROPIC_API_KEY), never this file.
+#
+# Template-wording runs: llm-large and llm-mini (temperature 0, seed 0).
+# Open-vocabulary study: one paid model per vendor (gpt-5.2 = llm-large,
+# claude-sonnet-5) plus open-weight models served locally by vLLM in 4-bit
+# form. Current Claude models reject temperature, so variation across
+# repeats is reported instead of claiming determinism.
+
+# Every paid call is priced from the API's reported tokens and booked in
+# the ledger; a call is refused once the ledger reaches cap_usd.
+budget:
+  cap_usd: 30.0
+  ledger: results/llm_spend.json
+
+backends:
+  llm-large:
+    provider: openai
+    model: gpt-5.2
+    temperature: 0.0
+    seed: 0
+    price: [1.75, 14.00]        # USD per 1M tokens, input / output (2026-11-03)
+  llm-mini:
+    provider: openai
+    model: gpt-5-mini
+    temperature: 0.0
+    seed: 0
+    price: [0.25, 2.00]
+  claude-sonnet:
+    provider: anthropic
+    model: claude-sonnet-5
+    thinking: disabled
+    price: [2.00, 10.00]
+
+  # Local open-weight models: start one server at a time, e.g.
+  #   vllm serve <model> --max-model-len 8192 --port 8000
+  # (see scripts/serve_local_llm.sh).
+  qwen3.5-9b:
+    provider: vllm
+    model: cyankiwi/Qwen3.5-9B-AWQ-4bit
+    timeout: 600          # s; a small model on a shared GPU can exceed the 120 s default
+    temperature: 0.0
+    seed: 0
+    extra_body: {chat_template_kwargs: {enable_thinking: false}}
+  llama3.1-8b:
+    provider: vllm
+    model: hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4
+    timeout: 600          # s; a small model on a shared GPU can exceed the 120 s default
+    temperature: 0.0
+    seed: 0
+  # Gemma 4 12B needs a newer vLLM/transformers (model type gemma4_unified)
+  # than the shared vLLM install has; Gemma 3 12B stands in (user, 2026-11-03).
+  gemma3-12b:
+    provider: vllm
+    model: gaunernst/gemma-3-12b-it-int4-awq
+    timeout: 600          # s; a small model on a shared GPU can exceed the 120 s default
+    temperature: 0.0
+    seed: 0
+
+default_backend: llm-large
+
+retries:
+  schema: 2          # schema-reminder retry (Sec. V-C)
+  regeneration: 2    # on mask validation failure

@@ -1,0 +1,22 @@
+# Unitree H1 humanoid (Sec. IV): 1.8 m stance.
+#
+# Band and headroom were 2.0 m, which allowed 0.2 m for a raised arm or
+# carried load. That allowance is retired (decision 2026-09-09): the arm
+# is never raised vertically in this study, so the envelope is the stance
+# plus 0.05 m of gait margin -- a 1.8 m robot given exactly 1.8 m of
+# headroom has none. Band top and headroom are kept equal so the lateral
+# obstacle test and the headroom test describe the same envelope.
+#
+# Measured effect on this floor: none. Sweeping headroom 2.00 -> 1.70 m
+# moves the largest reachable component 20.6 -> 20.7 m2. What actually
+# closes this floor to the H1 is `max_slope_deg`, not overhead structure.
+name: unitree_h1
+kind: humanoid
+height_band: [0.0, 1.85]
+r_reach: 0.8
+r_safety: 0.5
+max_slope_deg: 20.0
+min_lateral_clearance: 0.6
+required_vertical_clearance: 1.85
+foothold_band: 0.3
+sensors: [chest_lidar, stereo_camera, imu]

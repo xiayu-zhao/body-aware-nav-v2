@@ -1,0 +1,26 @@
+# Clearpath Husky A200 + Universal Robots UR5 (Sec. IV): the wheeled
+# mobile-manipulation platform, and the vehicle that captured the
+# lab-floor scan. It replaces the old `ugv` stand-in profile, whose
+# r_reach = 0 left Eq. 3's workspace kernel inactive in the as-built
+# study. (H1 already exercises Eq. 3 in simulation: r_reach = 0.8 m,
+# root.tex:444 -- so the kernel is new to the real-world regime, not to
+# the paper.)
+#
+# Vehicle (Clearpath A200 spec): 990 x 670 x 390 mm, 130 mm ground
+# clearance, 50 kg, 75 kg payload (20 kg all-terrain), 1.0 m/s.
+# Arm (UR5 spec): 850 mm reach, 5 kg payload, 20.6 kg.
+name: husky_ur5
+kind: ugv
+# 0.39 m deck + 0.85 m UR5 vertical reach. Assumes the arm is bolted
+# directly to the top deck; add the riser height if a mast is fitted.
+height_band: [0.0, 1.25]
+r_reach: 0.85                  # UR5 rated reach
+r_safety: 0.4                  # margin beyond reach
+# Clearpath rates a 45 deg climb grade and a 30 deg traversal/sideslope.
+# The planner gate takes the traversal figure: a path may cross a slope
+# rather than climb it. Derate further if the UR5 mount raises the centre
+# of gravity beyond Clearpath's high-mounted-payload assumption.
+max_slope_deg: 30.0
+min_lateral_clearance: 0.85    # 0.67 m body width + 0.09 m per side
+required_vertical_clearance: 1.25
+sensors: [lidar3d, rgbd_camera, imu]

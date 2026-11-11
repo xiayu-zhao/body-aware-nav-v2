@@ -1,0 +1,26 @@
+# Scans, voxel grids and task grids: downloaded from the links in README.md,
+# or rebuilt by the pipeline. Never in git.
+data/
+outputs/
+logs/
+draft_figs/
+tables/
+
+# Large simulation assets: the lab-floor stage and the vendor robot payloads.
+# Small stages, the URDF and the meshes stay in the repository.
+isaacsim/labfloor_loop_light.usd
+isaacsim/labfloor_loop_light.e57
+isaacsim/assets/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Outputs the scripts write; rebuilt, never in git
+results/
+figures/
+isaacsim/

@@ -1,0 +1,21 @@
+# Crazyflie 2.1 aerial platform.
+#
+# The band is 0.5-4.0 m, not the 2-10 m of an outdoor/high-bay flight
+# corridor. That corridor cannot exist in any of the three sites here:
+# the storeys are 2.12 m (Scene 1), 2.58 m (laboratory floor) and 3.98 m
+# (Scene 2), so a band starting at 2 m has under 0.6 m of headroom on two
+# of them and none at all below its own floor. 0.5-4.0 m is an indoor
+# flight envelope -- clear of ground clutter at the bottom, under the
+# soffit at the top -- and it is what makes the aerial embodiment
+# testable on the same sites as the ground platforms. The deviation is
+# stated in the paper rather than left to the profile.
+name: crazyflie21
+kind: aerial
+height_band: [0.5, 4.0]
+r_reach: 0.0
+r_safety: 0.5
+max_slope_deg: 90.0            # slope gate inactive for aerial platforms
+min_lateral_clearance: 0.5
+required_vertical_clearance: 0.5
+speed_limits: [5.0, 2.0]
+sensors: [downward_rgbd, forward_rgb, imu]

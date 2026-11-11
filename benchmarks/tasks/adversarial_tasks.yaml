@@ -1,0 +1,24 @@
+# 20 adversarial instructions (Sec. IV): 10 ambiguous references,
+# 10 infeasible constraints.
+#
+# TODO: export the full set; representative entries fix the schema.
+
+- id: adv_amb_01
+  kind: ambiguous
+  scene: scene2
+  platform: unitree_h1
+  instruction:
+    target: "the storage area"     # multiple candidates across floors
+    constraint: null
+    preference: "safety_first"
+  expected: "resolve by proximity or request clarification"
+
+- id: adv_inf_01
+  kind: infeasible
+  scene: scene1
+  platform: unitree_h1
+  instruction:
+    target: "far end of the narrow corridor"
+    constraint: "maintain 5 m clearance"   # corridor is 4 m wide
+    preference: "safety_first"
+  expected: "no path (correct rejection)"

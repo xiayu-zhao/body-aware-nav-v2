@@ -1,0 +1,27 @@
+# 54-task benchmark schema (Sec. IV "Tasks").
+# Six templates: {safety_inspection, transport} x {hazard_avoidance,
+# path_efficiency, area_preference}, three variants each: 18 humanoid
+# tasks per scene + 18 UAV tasks in Scene 2.
+#
+# TODO: export the full instantiated task set from the experiment
+# configs; two representative entries below fix the schema.
+
+- id: s1_h_insp_ha_01
+  scene: scene1
+  platform: unitree_h1
+  template: safety_inspection/hazard_avoidance
+  style: structured           # structured | semi_structured | free_form
+  instruction:
+    target: "scaffolding passage in the central corridor"
+    constraint: "keep at least 5 m from the welding zone"
+    preference: "safety_first"
+
+- id: s2_u_trans_pe_01
+  scene: scene2
+  platform: crazyflie21
+  template: transport/path_efficiency
+  style: structured
+  instruction:
+    target: "cable tray above Crane_Zone between floors"
+    constraint: "respect the 4-5 m altitude band near the vertical ducts"
+    preference: "efficiency_first"
