@@ -1,9 +1,5 @@
 # Open-vocabulary embodied grounding with large language models for safe robot path planning
 
-Code for the paper *Open-Vocabulary Embodied Grounding with Large Language Models
-for Safe Path Planning of Heterogeneous Robots on Complex Industrial Sites*
-(authors withheld for review).
-
 Site staff should be able to direct different robots in their own words, and
 those words must become paths that respect each robot's body and the safety
 distances people state. This repository plans paths for a wheeled Husky+UR5, a
